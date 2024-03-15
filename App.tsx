@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { View, PanResponder, Animated, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import AddTaskForm from 'components/AddTaskForm';
+import { View, PanResponder, Animated, Text, StyleSheet } from 'react-native';
 interface CardData {
   id: string;
   heading: string;
@@ -92,7 +93,7 @@ const Page: React.FC = () => {
 
   const addCard = () => {
     const newCard = {
-      id:String(cards.length + 1),
+      id: String(cards.length + 1),
       heading: 'New Card',
       paragraph: 'add content',
     };
@@ -105,13 +106,12 @@ const Page: React.FC = () => {
         <Text style={styles.title}>Drag and drop app</Text>
         <Text style={styles.subtitle}>try moving the elements</Text>
       </View>
-      <TouchableOpacity
+      <AddTaskForm
         onPress={addCard}
         onPressIn={() => setIsActive(true)}
         onPressOut={() => setIsActive(false)}
-        style={[styles.buttonContainer, isActive ? styles.active : null]}>
-        <Text style={isActive ? styles.activeText : styles.text}>add task</Text>
-      </TouchableOpacity>
+        isActive={isActive}
+      />
       <View style={styles.cardsWrapper}>
         {cards.map((card, index) => (
           <DragAndDropCard
@@ -156,27 +156,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
     fontSize: 18,
-  },
-  buttonContainer: {
-    backgroundColor: '#101010',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 20,
-    borderColor: 'white',
-    borderWidth: 1,
-    width: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 'auto',
-  },
-  active: {
-    backgroundColor: 'white',
-  },
-  text: {
-    color: 'white',
-  },
-  activeText: {
-    color: '#101010',
   },
   cardHeading: {
     fontSize: 18,
