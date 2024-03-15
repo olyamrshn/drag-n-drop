@@ -6,11 +6,6 @@ interface CardData {
   heading: string;
   paragraph: string;
 }
-interface CardData {
-  id: string;
-  heading: string;
-  paragraph: string;
-}
 
 const initialCards: CardData[] = [
   {
