@@ -6,6 +6,11 @@ interface CardData {
   heading: string;
   paragraph: string;
 }
+interface CardData {
+  id: string;
+  heading: string;
+  paragraph: string;
+}
 
 const initialCards: CardData[] = [
   {
@@ -80,6 +85,16 @@ const DragAndDropCard: React.FC<{
 
 const Page: React.FC = () => {
   const [cards, setCards] = useState(initialCards);
+  const [isActive, setIsActive] = useState(false);
+
+  const addCard = (task: string, task2: string = '') => {
+    const newCard = {
+      id: String(cards.length + 1),
+      heading: task,
+      paragraph: task2 || 'Optional text',
+    };
+    setCards([...cards, newCard]);
+  };
 
   const moveCard = (dragIndex: number, hoverIndex: number) => {
     const dragCard = cards[dragIndex];
@@ -89,28 +104,17 @@ const Page: React.FC = () => {
     setCards(newCards);
   };
 
-  const [isActive, setIsActive] = useState(false);
-
-  const addCard = () => {
-    const newCard = {
-      id: String(cards.length + 1),
-      heading: 'New Card',
-      paragraph: 'add content',
-    };
-    setCards([...cards, newCard]);
-  };
-
   return (
     <View style={styles.content}>
-      <View>
+       <View>
         <Text style={styles.title}>Drag and drop app</Text>
         <Text style={styles.subtitle}>try moving the elements</Text>
       </View>
       <AddTaskForm
-        onPress={addCard}
         onPressIn={() => setIsActive(true)}
         onPressOut={() => setIsActive(false)}
         isActive={isActive}
+        onAddTask={addCard}
       />
       <View style={styles.cardsWrapper}>
         {cards.map((card, index) => (
