@@ -5,7 +5,7 @@
     "android": "expo start --android",
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "ios": "expo start --ios",
-    "start": "expo start",
+    "start": "expo start --tunnel",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -15,24 +15,30 @@
     "nativewind": "^4.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.73.4",
-    "react-native-gesture-handler": "^2.14.0",
-    "react-native-reanimated": "^3.6.2",
-    "react-native-web": "~0.19.6"
+    "react-native": "^0.73.5",
+    "react-native-gesture-handler": "~2.14.0",
+    "react-native-reanimated": "~3.6.2",
+    "react-native-sfsymbols": "^1.2.1",
+    "react-native-svg": "^15.1.0",
+    "react-native-web": "~0.19.10"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@types/react": "~18.2.14",
-    "@typescript-eslint/eslint-plugin": "^6.7.2",
-    "@typescript-eslint/parser": "^6.7.2",
-    "eslint": "^8.50.0",
+    "@babel/core": "^7.24.0",
+    "@types/react": "~18.2.66",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint": "^8.57.0",
     "eslint-config-universe": "^12.0.0",
-    "prettier": "^3.0.3",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5.1.3"
+    "expo-cli": "^6.3.12",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.4.2"
   },
   "eslintConfig": {
     "extends": "universe/native"
+  },
+  "prettier": {
+    "semi": false
   },
   "main": "node_modules/expo/AppEntry.js",
   "private": true
