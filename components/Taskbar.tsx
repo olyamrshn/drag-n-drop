@@ -1,18 +1,18 @@
 import React from "react"
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native"
 
-const Taskbar: React.FC = () => {
+const Taskbar: React.FC<{ onAddCard: () => void }> = ({ onAddCard }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onAddCard}>
         <Text style={styles.buttonText}>+</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>✕</Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

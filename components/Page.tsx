@@ -8,24 +8,6 @@ interface CardData {
   paragraph: string
 }
 
-const initialCards: CardData[] = [
-  {
-    id: "1",
-    heading: "1st text",
-    paragraph: "random text",
-  },
-  {
-    id: "2",
-    heading: "2nd text",
-    paragraph: "this text ! should be swapped",
-  },
-  {
-    id: "3",
-    heading: "3rd text",
-    paragraph: "this text should be swapped",
-  },
-]
-
 const DragAndDropCard: React.FC<{
   heading: string
   paragraph: string
@@ -80,35 +62,15 @@ const DragAndDropCard: React.FC<{
   )
 }
 
-const Page: React.FC = () => {
-  const [cards, setCards] = useState(initialCards)
-  const [isActive, setIsActive] = useState(false)
-
-  const addCard = (task: string, task2?: string) => {
-    if (task2) {
-      const newCard = {
-        id: String(cards.length + 1),
-        heading: task,
-        paragraph: task2,
-      }
-      setCards([...cards, newCard])
-    } else {
-      const newCard = {
-        id: String(cards.length + 1),
-        heading: task,
-        paragraph: "",
-      }
-      setCards([...cards, newCard])
-    }
-  }
-
+const Page: React.FC<{ cards: CardData[]; setCards: React.Dispatch<React.SetStateAction<CardData[]>> }> = ({ cards, setCards }) => {
   const moveCard = (dragIndex: number, hoverIndex: number) => {
-    const dragCard = cards[dragIndex]
-    const newCards = [...cards]
-    newCards.splice(dragIndex, 1)
-    newCards.splice(hoverIndex, 0, dragCard)
-    setCards(newCards)
-  }
+    const dragCard = cards[dragIndex];
+    const newCards = [...cards];
+    newCards.splice(dragIndex, 1);
+    newCards.splice(hoverIndex, 0, dragCard);
+    setCards(newCards);
+  };
+
 
   return (
     <View style={styles.content}>
@@ -117,9 +79,12 @@ const Page: React.FC = () => {
         <Text style={styles.subtitle}>try moving the elements</Text>
       </View>
       <View style={styles.titleTodayContainer}>
-        <Ionicons name="paw" size={24} color="black" />
+        <Ionicons name="paw" size={24} color="darkkhaki" />
         <Text style={styles.titleToday}>Today</Text>
       </View>
+      {cards.length === 0 ? (
+        <Text style={styles.emthyList}>The list is emthy.{"\n"}Add a new todo</Text>
+      ) : (
       <View style={styles.cardsWrapper}>
         {cards.map((card, index) => (
           <DragAndDropCard
@@ -131,6 +96,7 @@ const Page: React.FC = () => {
           />
         ))}
       </View>
+      )}
     </View>
   )
 }
@@ -184,6 +150,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginLeft: 10,
   },
+    emthyList: {
+    marginTop: 20,
+    fontSize: 18,
+},
 })
 
 export default Page
