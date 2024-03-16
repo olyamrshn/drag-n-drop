@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react"
 import { View, PanResponder, Animated, Text, StyleSheet } from "react-native"
-import { Ionicons } from '@expo/vector-icons';
-
+import { Ionicons } from "@expo/vector-icons"
 interface CardData {
   id: string
   heading: string
@@ -62,15 +61,17 @@ const DragAndDropCard: React.FC<{
   )
 }
 
-const Page: React.FC<{ cards: CardData[]; setCards: React.Dispatch<React.SetStateAction<CardData[]>> }> = ({ cards, setCards }) => {
+const Page: React.FC<{
+  cards: CardData[]
+  setCards: React.Dispatch<React.SetStateAction<CardData[]>>
+}> = ({ cards, setCards }) => {
   const moveCard = (dragIndex: number, hoverIndex: number) => {
-    const dragCard = cards[dragIndex];
-    const newCards = [...cards];
-    newCards.splice(dragIndex, 1);
-    newCards.splice(hoverIndex, 0, dragCard);
-    setCards(newCards);
-  };
-
+    const dragCard = cards[dragIndex]
+    const newCards = [...cards]
+    newCards.splice(dragIndex, 1)
+    newCards.splice(hoverIndex, 0, dragCard)
+    setCards(newCards)
+  }
 
   return (
     <View style={styles.content}>
@@ -83,19 +84,21 @@ const Page: React.FC<{ cards: CardData[]; setCards: React.Dispatch<React.SetStat
         <Text style={styles.titleToday}>Today</Text>
       </View>
       {cards.length === 0 ? (
-        <Text style={styles.emthyList}>The list is emthy.{"\n"}Add a new todo</Text>
+        <Text style={styles.emthyList}>
+          The list is emthy.{"\n"}Add a new todo
+        </Text>
       ) : (
-      <View style={styles.cardsWrapper}>
-        {cards.map((card, index) => (
-          <DragAndDropCard
-            key={card.id}
-            heading={card.heading}
-            paragraph={card.paragraph}
-            index={index}
-            moveCard={moveCard}
-          />
-        ))}
-      </View>
+        <View style={styles.cardsWrapper}>
+          {cards.map((card, index) => (
+            <DragAndDropCard
+              key={card.id}
+              heading={card.heading}
+              paragraph={card.paragraph}
+              index={index}
+              moveCard={moveCard}
+            />
+          ))}
+        </View>
       )}
     </View>
   )
@@ -144,16 +147,22 @@ const styles = StyleSheet.create({
   titleTodayContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 20,
   },
   titleToday: {
     fontSize: 20,
     fontWeight: "500",
     marginLeft: 10,
   },
-    emthyList: {
-    marginTop: 20,
+  emthyList: {
+    marginTop: 100,
     fontSize: 18,
-},
+  },
+  editButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+  },
 })
 
 export default Page

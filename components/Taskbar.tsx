@@ -11,21 +11,21 @@ const Taskbar: React.FC<{ onAddCard: () => void }> = ({ onAddCard }) => {
         <Text style={styles.buttonText}>✕</Text>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    left: 0,
-    right: 0,
-    bottom: 0,
     backgroundColor: "#101010",
     paddingVertical: 25,
     paddingHorizontal: 25,
     position: "absolute",
     alignSelf: "flex-end",
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   button: {
     padding: 15,
