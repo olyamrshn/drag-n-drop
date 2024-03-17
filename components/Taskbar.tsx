@@ -1,14 +1,23 @@
 import React from "react"
 import { Ionicons } from "@expo/vector-icons"
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native"
+import { StyleSheet, View, TouchableOpacity } from "react-native"
 
-const Taskbar: React.FC<{ onAddCard: () => void }> = ({ onAddCard }) => {
+const Taskbar: React.FC<{
+  onAddCard: () => void
+  isAddingTodo: boolean
+  onCancel: () => void
+}> = ({ onAddCard, isAddingTodo, onCancel }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={onAddCard}>
-        <Text style={styles.buttonText}>
-        <Ionicons name="pencil" size={24} color="white" />
-        </Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => (isAddingTodo ? onCancel() : onAddCard())}
+      >
+        {isAddingTodo ? (
+          <Ionicons name="close" size={24} color="white" />
+        ) : (
+          <Ionicons name="pencil" size={24} color="white" />
+        )}
       </TouchableOpacity>
     </View>
   )
@@ -34,4 +43,3 @@ const styles = StyleSheet.create({
 })
 
 export default Taskbar
-

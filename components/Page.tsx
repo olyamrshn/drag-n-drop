@@ -105,7 +105,7 @@ const Page: React.FC<{
       </View>
       {cards.length === 0 && !isNewTodoVisible ? (
         <Text style={styles.emptyList}>
-          The list is empty.{"\n"}Add a new todo.
+          You don't have any notes yet.{"\n"} Add a new one :)
         </Text>
       ) : (
         <View style={styles.cardsWrapper}>
@@ -178,7 +178,10 @@ const styles = StyleSheet.create({
   },
   emptyList: {
     marginTop: 100,
+    textAlign: 'center',
+    margin: "auto",
     fontSize: 18,
+    color: "gray",
   },
   editButton: {
     position: "absolute",

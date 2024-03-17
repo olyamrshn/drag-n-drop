@@ -1,31 +1,42 @@
-import React, { useState } from "react";
-import { View } from "react-native";
-import Page from "./components/Page";
-import Taskbar from "./components/Taskbar";
-import NewTodo from "./components/NewTodo";
+import React, { useState } from "react"
+import { View } from "react-native"
+import Page from "./components/Page"
+import Taskbar from "./components/Taskbar"
+import NewTodo from "./components/NewTodo"
 interface CardData {
-  id: string;
-  heading: string;
-  paragraph: string;
+  id: string
+  heading: string
+  paragraph: string
 }
 
 const App: React.FC = () => {
-  const [cards, setCards] = useState<CardData[]>([]);
-  const [isNewTodoVisible, setIsNewTodoVisible] = useState(false);
+  const [cards, setCards] = useState<CardData[]>([])
+  const [isNewTodoVisible, setIsNewTodoVisible] = useState(false)
 
   const addNewCard = (card: CardData) => {
-    setCards([card, ...cards]);
-    setIsNewTodoVisible(false);
-  };
+    setCards([card, ...cards])
+    setIsNewTodoVisible(false)
+  }
+
+  const cancelAdding = () => {
+    setIsNewTodoVisible(false)
+  }
 
   return (
     <View style={{ flex: 1 }}>
-      <Page cards={cards} setCards={setCards} isNewTodoVisible={isNewTodoVisible} />
+      <Page
+        cards={cards}
+        setCards={setCards}
+        isNewTodoVisible={isNewTodoVisible}
+      />
       {isNewTodoVisible && <NewTodo onAdd={addNewCard} />}
-      <Taskbar onAddCard={() => setIsNewTodoVisible(true)} />
+      <Taskbar
+        onAddCard={() => setIsNewTodoVisible(true)}
+        isAddingTodo={isNewTodoVisible}
+        onCancel={cancelAdding}
+      />
     </View>
-  );
-};
+  )
+}
 
-export default App;
-
+export default App

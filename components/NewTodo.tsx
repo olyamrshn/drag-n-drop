@@ -43,7 +43,7 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
         />
         <TouchableOpacity
         onPress={handleCreate}
-        style={[styles.createbutton, { opacity: !heading || !paragraph ? 0.5 : 1 }]}
+        style={[styles.createbutton, { opacity: !heading || !paragraph ? 0.2 : 1 }]}
         disabled={!heading || !paragraph}
         >
           <Text>
