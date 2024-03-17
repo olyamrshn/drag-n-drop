@@ -1,14 +1,14 @@
 import React from "react"
+import { Ionicons } from "@expo/vector-icons"
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native"
 
 const Taskbar: React.FC<{ onAddCard: () => void }> = ({ onAddCard }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onAddCard}>
-        <Text style={styles.buttonText}>+</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>✕</Text>
+        <Text style={styles.buttonText}>
+        <Ionicons name="pencil" size={24} color="white" />
+        </Text>
       </TouchableOpacity>
     </View>
   )
@@ -16,26 +16,22 @@ const Taskbar: React.FC<{ onAddCard: () => void }> = ({ onAddCard }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "#101010",
-    paddingVertical: 25,
-    paddingHorizontal: 25,
     position: "absolute",
     alignSelf: "flex-end",
-    left: 0,
-    right: 0,
-    bottom: 0,
+    bottom: 20,
+    right: 20,
   },
   button: {
     padding: 15,
-    borderRadius: 20,
-    backgroundColor: "white",
+    paddingHorizontal: 20,
+    borderRadius: 70,
+    backgroundColor: "black",
   },
   buttonText: {
-    color: "#101010",
-    fontSize: 18,
+    color: "white",
+    fontSize: 25,
   },
 })
 
 export default Taskbar
+

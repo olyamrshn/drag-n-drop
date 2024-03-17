@@ -1,59 +1,12 @@
-// import React, { useState } from "react";
-// import { View, TextInput, Button, StyleSheet } from "react-native";
-
-// interface NewTodoProps {
-//   onAdd: (heading: string, paragraph: string) => void;
-// }
-
-// const NewTodo: React.FC<NewTodoProps> = ({ onAdd }) => {
-//   const [heading, setHeading] = useState('');
-//   const [paragraph, setParagraph] = useState('');
-
-//   const handleAddPress = () => {
-//     onAdd(heading, paragraph);
-//     setHeading('');
-//     setParagraph('');
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Заголовок"
-//         value={heading}
-//         onChangeText={setHeading}
-//       />
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Параграф"
-//         multiline
-//         value={paragraph}
-//         onChangeText={setParagraph}
-//       />
-//       <Button title="Создать" onPress={handleAddPress} />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     padding: 20,
-//     backgroundColor: '#fff',
-//   },
-//   input: {
-//     marginBottom: 10,
-//     paddingHorizontal: 8,
-//     paddingVertical: 6,
-//     borderBottomWidth: 1,
-//     borderBottomColor: '#ddd',
-//   },
-// });
-
-// export default NewTodo;
-
 import React, { useState } from "react"
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from "react-native"
-
+import { Ionicons } from "@expo/vector-icons"
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native"
 interface CardData {
   id: string
   heading: string
@@ -75,21 +28,29 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.inputHeading}
-        placeholder="add todo heading"
-        value={heading}
-        onChangeText={setHeading}
-      />
-      <TextInput
-        style={styles.inputParagraph}
-        placeholder="add description"
-        value={paragraph}
-        onChangeText={setParagraph}
-      />
-<TouchableOpacity onPress={handleCreate} style={styles.createbutton}>
-        <Text style={styles.createbuttonText}>Create</Text>
-      </TouchableOpacity>
+      <View style={styles.newCard}>
+        <TextInput
+          style={styles.inputHeading}
+          placeholder="todo heading ..."
+          value={heading}
+          onChangeText={setHeading}
+        />
+        <TextInput
+          style={styles.inputParagraph}
+          placeholder="description ..."
+          value={paragraph}
+          onChangeText={setParagraph}
+        />
+        <TouchableOpacity
+        onPress={handleCreate}
+        style={[styles.createbutton, { opacity: !heading || !paragraph ? 0.5 : 1 }]}
+        disabled={!heading || !paragraph}
+        >
+          <Text>
+            <Ionicons name="pencil" size={24} />
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -98,24 +59,29 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 200,
-    backgroundColor: "#fff",
+  },
+  newCard: {
+    marginTop: 20,
+    borderWidth: 1,
+    width: 350,
+    borderColor: "grey",
+    margin: "auto",
+    padding: 10,
   },
   inputHeading: {
+    fontSize: 18,
     color: "black",
-    fontSize: 25,
-    marginTop: 100,
-    marginBottom: 10,
+    fontWeight: "400",
   },
   inputParagraph: {
     color: "black",
-    fontSize: 25,
+    fontWeight: "300",
+    fontSize: 14,
   },
   createbutton: {
-    marginTop: 100,
-  },
-  createbuttonText: {
-    fontSize: 20,
+    position: "absolute",
+    right: 10,
+    marginTop: 20,
   },
 })
 

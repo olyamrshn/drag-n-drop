@@ -1,5 +1,12 @@
 import React, { useRef, useState } from "react"
-import { View, PanResponder, Animated, Text, StyleSheet } from "react-native"
+import {
+  View,
+  PanResponder,
+  Animated,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 interface CardData {
   id: string
@@ -15,6 +22,7 @@ const DragAndDropCard: React.FC<{
 }> = ({ heading, paragraph, index, moveCard }) => {
   const position = useRef(new Animated.ValueXY()).current
   const [dragging, setDragging] = useState(false)
+  const [cards, setCards] = useState<CardData[]>([])
 
   const panResponder = useRef(
     PanResponder.create({
@@ -44,17 +52,28 @@ const DragAndDropCard: React.FC<{
     }),
   ).current
 
+  const handleDeleteCard = (index: number) => {
+    const updatedCards = cards.filter((_, i) => i !== index)
+    setCards(updatedCards)
+  }
+
   return (
     <Animated.View
       style={[
         styles.cardContainer,
         {
           transform: position.getTranslateTransform(),
-          opacity: dragging ? 0.8 : 1,
+          opacity: dragging ? 0.9 : 1,
         },
       ]}
       {...panResponder.panHandlers}
     >
+      <TouchableOpacity
+        onPress={() => handleDeleteCard(index)}
+        style={styles.deleteButton}
+      >
+        <Ionicons name="trash" size={20} color="black" />
+      </TouchableOpacity>
       <Text style={styles.cardHeading}>{heading}</Text>
       <Text style={styles.cardParagraph}>{paragraph}</Text>
     </Animated.View>
@@ -113,10 +132,11 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginTop: 20,
     borderWidth: 1,
-    width: 300,
+    width: 350,
     borderColor: "grey",
     margin: "auto",
     padding: 10,
+    backgroundColor: "white",
   },
   cardsWrapper: {
     alignItems: "center",
@@ -162,6 +182,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
+  },
+  deleteButton: {
+    position: "absolute",
+    top: 20,
+    right: 15,
   },
 })
 
