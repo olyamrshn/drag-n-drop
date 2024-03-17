@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Page cards={cards} setCards={setCards} />
+      <Page cards={cards} setCards={setCards} isNewTodoVisible={isNewTodoVisible} />
       {isNewTodoVisible && <NewTodo onAdd={addNewCard} />}
       <Taskbar onAddCard={() => setIsNewTodoVisible(true)} />
     </View>

@@ -19,10 +19,10 @@ const DragAndDropCard: React.FC<{
   paragraph: string
   index: number
   moveCard: (dragIndex: number, hoverIndex: number) => void
-}> = ({ heading, paragraph, index, moveCard }) => {
+  onDelete: (index: number) => void
+}> = ({ heading, paragraph, index, moveCard, onDelete }) => {
   const position = useRef(new Animated.ValueXY()).current
   const [dragging, setDragging] = useState(false)
-  const [cards, setCards] = useState<CardData[]>([])
 
   const panResponder = useRef(
     PanResponder.create({
@@ -52,11 +52,6 @@ const DragAndDropCard: React.FC<{
     }),
   ).current
 
-  const handleDeleteCard = (index: number) => {
-    const updatedCards = cards.filter((_, i) => i !== index)
-    setCards(updatedCards)
-  }
-
   return (
     <Animated.View
       style={[
@@ -69,7 +64,7 @@ const DragAndDropCard: React.FC<{
       {...panResponder.panHandlers}
     >
       <TouchableOpacity
-        onPress={() => handleDeleteCard(index)}
+        onPress={() => onDelete(index)}
         style={styles.deleteButton}
       >
         <Ionicons name="trash" size={20} color="black" />
@@ -83,7 +78,8 @@ const DragAndDropCard: React.FC<{
 const Page: React.FC<{
   cards: CardData[]
   setCards: React.Dispatch<React.SetStateAction<CardData[]>>
-}> = ({ cards, setCards }) => {
+  isNewTodoVisible: boolean
+}> = ({ cards, setCards, isNewTodoVisible }) => {
   const moveCard = (dragIndex: number, hoverIndex: number) => {
     const dragCard = cards[dragIndex]
     const newCards = [...cards]
@@ -92,19 +88,24 @@ const Page: React.FC<{
     setCards(newCards)
   }
 
+  const handleDeleteCard = (index: number) => {
+    const updatedCards = cards.filter((_, i) => i !== index)
+    setCards(updatedCards)
+  }
+
   return (
     <View style={styles.content}>
       <View>
         <Text style={styles.title}>Drag and drop app</Text>
-        <Text style={styles.subtitle}>try moving the elements</Text>
+        <Text style={styles.subtitle}>Try moving the elements</Text>
       </View>
       <View style={styles.titleTodayContainer}>
         <Ionicons name="paw" size={24} color="darkkhaki" />
         <Text style={styles.titleToday}>Today</Text>
       </View>
-      {cards.length === 0 ? (
-        <Text style={styles.emthyList}>
-          The list is emthy.{"\n"}Add a new todo
+      {cards.length === 0 && !isNewTodoVisible ? (
+        <Text style={styles.emptyList}>
+          The list is empty.{"\n"}Add a new todo.
         </Text>
       ) : (
         <View style={styles.cardsWrapper}>
@@ -115,6 +116,7 @@ const Page: React.FC<{
               paragraph={card.paragraph}
               index={index}
               moveCard={moveCard}
+              onDelete={handleDeleteCard}
             />
           ))}
         </View>
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginTop: 20,
     borderWidth: 1,
-    width: 350,
+    width: 320,
     borderColor: "grey",
     margin: "auto",
     padding: 10,
@@ -174,7 +176,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginLeft: 10,
   },
-  emthyList: {
+  emptyList: {
     marginTop: 100,
     fontSize: 18,
   },

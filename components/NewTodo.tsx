@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   newCard: {
     marginTop: 20,
     borderWidth: 1,
-    width: 350,
+    width: 320,
     borderColor: "grey",
     margin: "auto",
     padding: 10,
