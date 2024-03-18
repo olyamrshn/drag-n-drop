@@ -25,7 +25,7 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
     }
     onAdd(newCard)
   }
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.newCard}>

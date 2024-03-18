@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react"
+import "react-native-gesture-handler"
+import { Ionicons } from "@expo/vector-icons"
 import {
   View,
   PanResponder,
@@ -7,7 +9,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native"
-import { Ionicons } from "@expo/vector-icons"
 interface CardData {
   id: string
   heading: string
@@ -41,8 +42,9 @@ const DragAndDropCard: React.FC<{
         ],
         { useNativeDriver: false },
       ),
+
       onPanResponderRelease: (event, gesture) => {
-        const hoverIndex = index
+        const hoverIndex = Math.max(0, index + (gesture.dy > 0 ? 1 : -1))
         moveCard(index, hoverIndex)
         Animated.spring(position, {
           toValue: { x: 0, y: 0 },
@@ -81,9 +83,8 @@ const Page: React.FC<{
   isNewTodoVisible: boolean
 }> = ({ cards, setCards, isNewTodoVisible }) => {
   const moveCard = (dragIndex: number, hoverIndex: number) => {
-    const dragCard = cards[dragIndex]
     const newCards = [...cards]
-    newCards.splice(dragIndex, 1)
+    const dragCard = newCards.splice(dragIndex, 1)[0]
     newCards.splice(hoverIndex, 0, dragCard)
     setCards(newCards)
   }
@@ -133,6 +134,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     marginTop: 20,
+    minHeight: 0,
     borderWidth: 1,
     width: 320,
     borderColor: "grey",
@@ -163,7 +165,8 @@ const styles = StyleSheet.create({
   },
   cardParagraph: {
     fontWeight: "300",
-    fontSize: 14,
+    fontSize: 16,
+    marginTop: 6,
     color: "gray",
   },
   titleTodayContainer: {
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
   },
   emptyList: {
     marginTop: 100,
-    textAlign: 'center',
+    textAlign: "center",
     margin: "auto",
     fontSize: 18,
     color: "gray",
