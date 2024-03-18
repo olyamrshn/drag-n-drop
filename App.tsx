@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import { View } from "react-native"
+
+import NewTodo from "./components/NewTodo"
 import Page from "./components/Page"
 import Taskbar from "./components/Taskbar"
-import NewTodo from "./components/NewTodo"
 interface CardData {
   id: string
   heading: string

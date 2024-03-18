@@ -1,5 +1,5 @@
-import React from "react"
 import { Ionicons } from "@expo/vector-icons"
+import React from "react"
 import { StyleSheet, View, TouchableOpacity } from "react-native"
 
 const Taskbar: React.FC<{

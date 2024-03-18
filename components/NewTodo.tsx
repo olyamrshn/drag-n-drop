@@ -1,5 +1,5 @@
-import React, { useState } from "react"
 import { Ionicons } from "@expo/vector-icons"
+import React, { useState } from "react"
 import {
   View,
   Text,
@@ -25,7 +25,7 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
     }
     onAdd(newCard)
   }
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.newCard}>
@@ -42,9 +42,12 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
           onChangeText={setParagraph}
         />
         <TouchableOpacity
-        onPress={handleCreate}
-        style={[styles.createbutton, { opacity: !heading || !paragraph ? 0.2 : 1 }]}
-        disabled={!heading || !paragraph}
+          onPress={handleCreate}
+          style={[
+            { opacity: !heading || !paragraph ? 0.2 : 1 },
+            styles.createbutton,
+          ]}
+          disabled={!heading || !paragraph}
         >
           <Text>
             <Ionicons name="pencil" size={24} />

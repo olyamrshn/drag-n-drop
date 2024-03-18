@@ -1,6 +1,6 @@
+import { Ionicons } from "@expo/vector-icons"
 import React, { useRef, useState } from "react"
 import "react-native-gesture-handler"
-import { Ionicons } from "@expo/vector-icons"
 import {
   View,
   PanResponder,
