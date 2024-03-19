@@ -16,7 +16,7 @@ const Taskbar: React.FC<{
         {isAddingTodo ? (
           <Ionicons name="close" size={24} color="white" />
         ) : (
-          <Ionicons name="pencil" size={24} color="white" />
+          <Ionicons name="add" size={24} color="white" />
         )}
       </TouchableOpacity>
     </View>
@@ -32,13 +32,9 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 15,
-    paddingHorizontal: 20,
-    borderRadius: 70,
+    // paddingHorizontal: 20,
+    borderRadius: 90,
     backgroundColor: "black",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 25,
   },
 })
 
