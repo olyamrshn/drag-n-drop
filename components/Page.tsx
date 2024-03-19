@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react"
 import "react-native-gesture-handler"
 import {
   View,
+  ScrollView,
   PanResponder,
   Animated,
   Text,
@@ -98,7 +99,7 @@ const Page: React.FC<{
   return (
     <View style={styles.content}>
       <View>
-        <Text style={styles.title}>Drag and drop app</Text>
+        <Text style={styles.title}>Drag and drop App</Text>
         <Text style={styles.subtitle}>Try moving the elements</Text>
       </View>
       <View style={styles.titleTodayContainer}>
@@ -110,7 +111,7 @@ const Page: React.FC<{
           You don't have any notes yet.{"\n"} Add a new one :)
         </Text>
       ) : (
-        <View style={styles.cardsWrapper}>
+        <ScrollView contentContainerStyle={styles.cardsWrapper}>
           {cards.map((card, index) => (
             <DragAndDropCard
               id={card.id}
@@ -121,7 +122,7 @@ const Page: React.FC<{
               onDelete={handleDeleteCard}
             />
           ))}
-        </View>
+        </ScrollView>
       )}
     </View>
   )
@@ -185,6 +186,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: "auto",
     fontSize: 18,
+    fontWeight: "100",
     color: "gray",
   },
   editButton: {
