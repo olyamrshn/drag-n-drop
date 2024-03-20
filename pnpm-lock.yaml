@@ -41,6 +41,9 @@ dependencies:
   react-native-gesture-handler:
     specifier: ~2.14.0
     version: 2.14.1(react-native@0.73.6)(react@18.2.0)
+  react-native-image-picker:
+    specifier: ^7.1.1
+    version: 7.1.1(react-native@0.73.6)(react@18.2.0)
   react-native-reanimated:
     specifier: ~3.6.2
     version: 3.6.3(@babel/core@7.24.0)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.6)(react@18.2.0)
@@ -9640,6 +9643,16 @@ packages:
       invariant: 2.2.4
       lodash: 4.17.21
       prop-types: 15.8.1
+      react: 18.2.0
+      react-native: 0.73.6(@babel/core@7.24.0)(@babel/preset-env@7.24.0)(react@18.2.0)
+    dev: false
+
+  /react-native-image-picker@7.1.1(react-native@0.73.6)(react@18.2.0):
+    resolution: {integrity: sha512-8zQS8RJkGq+jV6bzmIQ560QL2tccXUwouDWktJt7typfNu/QpuDm9pnESeLkdA5MHGTMm8YR09tcV1qtBD+0fg==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
       react: 18.2.0
       react-native: 0.73.6(@babel/core@7.24.0)(@babel/preset-env@7.24.0)(react@18.2.0)
     dev: false

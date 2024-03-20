@@ -1,6 +1,7 @@
 import Page from "components/Page"
 import React, { useState } from "react"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
+import { launchCamera, launchImageLibrary } from "react-native-image-picker"
 
 import Taskbar from "./components/Taskbar"
 
