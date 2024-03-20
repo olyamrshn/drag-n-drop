@@ -13,8 +13,6 @@ interface CardData {
   paragraph: string
 }
 
-// todo: добавить функционал для прикрепления фотографий сюда и в dragndrop element
-
 const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
   const [heading, setHeading] = useState("")
   const [paragraph, setParagraph] = useState("")

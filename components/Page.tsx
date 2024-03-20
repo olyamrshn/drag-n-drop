@@ -1,15 +1,9 @@
 import { Ionicons } from "@expo/vector-icons"
-import React, { useRef, useState } from "react"
-import "react-native-gesture-handler"
-import {
-  View,
-  ScrollView,
-  PanResponder,
-  Animated,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native"
+import React from "react"
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import DraggableFlatList from "react-native-draggable-flatlist"
+
+import NewTodo from "./NewTodo"
 
 interface CardData {
   id: string
@@ -21,50 +15,11 @@ const DragAndDropCard: React.FC<{
   id: string
   heading: string
   paragraph: string
-  moveCard: (dragId: string, hoverId: string) => void
   onDelete: (id: string) => void
-}> = ({ id, heading, paragraph, moveCard, onDelete }) => {
-  const position = useRef(new Animated.ValueXY()).current
-  const [dragging, setDragging] = useState(false)
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: () => {
-        setDragging(true)
-      },
-      onPanResponderMove: Animated.event(
-        [
-          null,
-          {
-            dx: position.x,
-            dy: position.y,
-          },
-        ],
-        { useNativeDriver: false },
-      ),
-      onPanResponderRelease: (event, gesture) => {
-        moveCard(id, "id")
-        Animated.spring(position, {
-          toValue: { x: 0, y: 0 },
-          useNativeDriver: false,
-        }).start(() => setDragging(false))
-      },
-    }),
-  ).current
-
+  drag: () => void
+}> = ({ id, heading, paragraph, onDelete, drag }) => {
   return (
-    <Animated.View
-      style={[
-        styles.cardContainer,
-        {
-          transform: position.getTranslateTransform(),
-          opacity: dragging ? 0.9 : 1,
-        },
-      ]}
-      {...panResponder.panHandlers}
-    >
+    <TouchableOpacity onLongPress={drag} style={styles.cardContainer}>
       <TouchableOpacity
         onPress={() => onDelete(id)}
         style={styles.deleteButton}
@@ -73,7 +28,7 @@ const DragAndDropCard: React.FC<{
       </TouchableOpacity>
       <Text style={styles.cardHeading}>{heading}</Text>
       <Text style={styles.cardParagraph}>{paragraph}</Text>
-    </Animated.View>
+    </TouchableOpacity>
   )
 }
 
@@ -81,16 +36,8 @@ const Page: React.FC<{
   cards: CardData[]
   setCards: React.Dispatch<React.SetStateAction<CardData[]>>
   isNewTodoVisible: boolean
-}> = ({ cards, setCards, isNewTodoVisible }) => {
-  const moveCard = (dragId: string, hoverId: string) => {
-    const newCards = [...cards]
-    const dragIndex = cards.findIndex((card) => card.id === dragId)
-    const hoverIndex = cards.findIndex((card) => card.id === hoverId)
-    const dragCard = newCards.splice(dragIndex, 1)[0]
-    newCards.splice(hoverIndex, 0, dragCard)
-    setCards(newCards)
-  }
-
+  onAdd: (card: CardData) => void
+}> = ({ cards, setCards, isNewTodoVisible, onAdd }) => {
   const handleDeleteCard = (id: string) => {
     const updatedCards = cards.filter((card) => card.id !== id)
     setCards(updatedCards)
@@ -106,23 +53,26 @@ const Page: React.FC<{
         <Ionicons name="paw" size={24} color="darkkhaki" />
         <Text style={styles.titleToday}>Today</Text>
       </View>
-      {cards.length === 0 && !isNewTodoVisible ? (
+      {isNewTodoVisible && <NewTodo onAdd={onAdd} />}
+      {cards.length === 0 ? (
         <Text style={styles.emptyList}>
-          You don't have any notes yet.{"\n"} Add a new one :)
+          You don't have any notes yet.{"\n"}Add a new one
         </Text>
       ) : (
-        <ScrollView contentContainerStyle={styles.cardsWrapper}>
-          {cards.map((card, index) => (
+        <DraggableFlatList
+          data={cards}
+          onDragEnd={({ data }) => setCards(data)}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, drag, isActive }) => (
             <DragAndDropCard
-              id={card.id}
-              key={card.id}
-              heading={card.heading}
-              paragraph={card.paragraph}
-              moveCard={moveCard}
+              id={item.id}
+              heading={item.heading}
+              paragraph={item.paragraph}
               onDelete={handleDeleteCard}
+              drag={drag}
             />
-          ))}
-        </ScrollView>
+          )}
+        />
       )}
     </View>
   )

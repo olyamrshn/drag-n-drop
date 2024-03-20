@@ -1,9 +1,9 @@
 import Page from "components/Page"
 import React, { useState } from "react"
-import { View } from "react-native"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
 
-import NewTodo from "./components/NewTodo"
 import Taskbar from "./components/Taskbar"
+
 interface CardData {
   id: string
   heading: string
@@ -24,19 +24,21 @@ const App: React.FC = () => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <Page
-        cards={cards}
-        setCards={setCards}
-        isNewTodoVisible={isNewTodoVisible}
-      />
-      {isNewTodoVisible && <NewTodo onAdd={addNewCard} />}
+    <>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Page
+          cards={cards}
+          setCards={setCards}
+          isNewTodoVisible={isNewTodoVisible}
+          onAdd={addNewCard}
+        />
+      </GestureHandlerRootView>
       <Taskbar
         onAddCard={() => setIsNewTodoVisible(true)}
         isAddingTodo={isNewTodoVisible}
         onCancel={cancelAdding}
       />
-    </View>
+    </>
   )
 }
 
