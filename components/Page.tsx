@@ -5,7 +5,6 @@ import DraggableFlatList from "react-native-draggable-flatlist"
 
 import NewTodo from "./NewTodo"
 import Text from "./TextColor"
-
 interface CardData {
   id: string
   heading: string
@@ -78,15 +77,17 @@ const Page: React.FC<{
 const styles = StyleSheet.create({
   content: {
     marginTop: 50,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
+    width: "100%",
   },
   cardContainer: {
     marginTop: 20,
     minHeight: 0,
     borderWidth: 1,
-    width: 320,
+    width: 340,
     borderColor: "grey",
+    borderRadius: 20,
     margin: "auto",
     padding: 10,
     backgroundColor: "#121212",
