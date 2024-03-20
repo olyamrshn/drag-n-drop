@@ -4,7 +4,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
 import DraggableFlatList from "react-native-draggable-flatlist"
 
 import NewTodo from "./NewTodo"
-
 interface CardData {
   id: string
   heading: string
@@ -45,16 +44,12 @@ const Page: React.FC<{
 
   return (
     <View style={styles.content}>
-      <View>
-        <Text style={styles.title}>Drag and drop App</Text>
-        <Text style={styles.subtitle}>Try moving the elements</Text>
-      </View>
       <View style={styles.titleTodayContainer}>
         <Ionicons name="paw" size={24} color="darkkhaki" />
         <Text style={styles.titleToday}>Today</Text>
       </View>
       {isNewTodoVisible && <NewTodo onAdd={onAdd} />}
-      {cards.length === 0 ? (
+      {!isNewTodoVisible && cards.length === 0 ? (
         <Text style={styles.emptyList}>
           You don't have any notes yet.{"\n"}Add a new one
         </Text>
@@ -63,7 +58,7 @@ const Page: React.FC<{
           data={cards}
           onDragEnd={({ data }) => setCards(data)}
           keyExtractor={(item) => item.id}
-          renderItem={({ item, drag, isActive }) => (
+          renderItem={({ item, drag }) => (
             <DragAndDropCard
               id={item.id}
               heading={item.heading}
@@ -97,19 +92,6 @@ const styles = StyleSheet.create({
   cardsWrapper: {
     alignItems: "center",
     justifyContent: "center",
-  },
-  title: {
-    fontSize: 25,
-    textAlign: "center",
-    marginTop: 20,
-    fontWeight: "600",
-  },
-  subtitle: {
-    fontWeight: "100",
-    textAlign: "center",
-    marginTop: 8,
-    marginBottom: 10,
-    fontSize: 18,
   },
   cardHeading: {
     fontSize: 18,
