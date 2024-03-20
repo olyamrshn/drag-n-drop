@@ -1,9 +1,11 @@
 import { Ionicons } from "@expo/vector-icons"
 import React from "react"
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import { View, StyleSheet, TouchableOpacity } from "react-native"
 import DraggableFlatList from "react-native-draggable-flatlist"
 
 import NewTodo from "./NewTodo"
+import Text from "./TextColor"
+
 interface CardData {
   id: string
   heading: string
@@ -23,7 +25,7 @@ const DragAndDropCard: React.FC<{
         onPress={() => onDelete(id)}
         style={styles.deleteButton}
       >
-        <Ionicons name="trash" size={20} color="black" />
+        <Ionicons name="trash" size={20} color="white" />
       </TouchableOpacity>
       <Text style={styles.cardHeading}>{heading}</Text>
       <Text style={styles.cardParagraph}>{paragraph}</Text>
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     margin: "auto",
     padding: 10,
-    backgroundColor: "white",
+    backgroundColor: "#121212",
   },
   cardsWrapper: {
     alignItems: "center",
@@ -101,7 +103,6 @@ const styles = StyleSheet.create({
     fontWeight: "300",
     fontSize: 16,
     marginTop: 6,
-    color: "gray",
   },
   titleTodayContainer: {
     flexDirection: "row",
@@ -119,17 +120,18 @@ const styles = StyleSheet.create({
     margin: "auto",
     fontSize: 18,
     fontWeight: "100",
-    color: "gray",
   },
   editButton: {
     position: "absolute",
     top: 10,
     right: 10,
+    color: "white",
   },
   deleteButton: {
     position: "absolute",
     top: 20,
     right: 15,
+    color: "white",
   },
 })
 

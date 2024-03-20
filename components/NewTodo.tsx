@@ -32,25 +32,27 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
         <TextInput
           style={styles.inputHeading}
           placeholder="todo heading ..."
+          placeholderTextColor="rgba(255, 255, 255, 0.7)"
           value={heading}
           onChangeText={setHeading}
         />
         <TextInput
           style={styles.inputParagraph}
           placeholder="description ..."
+          placeholderTextColor="rgba(255, 255, 255, 0.7)"
           value={paragraph}
           onChangeText={setParagraph}
         />
         <TouchableOpacity
           onPress={handleCreate}
           style={[
-            { opacity: !heading || !paragraph ? 0.2 : 1 },
+            { opacity: !heading || !paragraph ? 0.6 : 1 },
             styles.createbutton,
           ]}
           disabled={!heading || !paragraph}
         >
           <Text>
-            <Ionicons name="pencil" size={24} />
+            <Ionicons name="pencil" size={24} color="white" />
           </Text>
         </TouchableOpacity>
       </View>
@@ -62,6 +64,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
+    color: "white",
   },
   newCard: {
     marginTop: 20,
@@ -73,14 +76,14 @@ const styles = StyleSheet.create({
   },
   inputHeading: {
     fontSize: 18,
-    color: "black",
+    color: "white",
     fontWeight: "400",
   },
   inputParagraph: {
     marginTop: 3,
-    color: "black",
     fontWeight: "300",
     fontSize: 14,
+    color: "white",
   },
   createbutton: {
     position: "absolute",

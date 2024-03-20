@@ -26,7 +26,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <GestureHandlerRootView style={{ flex: 1 }}>
+      <GestureHandlerRootView style={{ flex: 1, backgroundColor: "#121212" }}>
         <Page
           cards={cards}
           setCards={setCards}
