@@ -7,7 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Platform,
   Image,
 } from "react-native"
 
@@ -50,7 +49,7 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
         {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
         <TextInput
           style={styles.inputHeading}
-          placeholder="todo heading ..."
+          placeholder="todo heading"
           placeholderTextColor="rgba(255, 255, 255, 0.7)"
           value={heading}
           onChangeText={setHeading}
@@ -58,7 +57,7 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
         />
         <TextInput
           style={styles.inputParagraph}
-          placeholder="description ..."
+          placeholder="description"
           placeholderTextColor="rgba(255, 255, 255, 0.7)"
           value={paragraph}
           onChangeText={setParagraph}
@@ -66,7 +65,15 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
           scrollEnabled={false}
         />
         <TouchableOpacity onPress={pickImage} style={styles.pickImageButton}>
-          <Text style={styles.pickImageButtonText}>pic an image</Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Ionicons
+              name="image"
+              style={styles.pickIcon}
+              size={15}
+              color="white"
+            />
+            <Text style={styles.pickImageButtonText}> pick an image</Text>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleCreate}
@@ -99,17 +106,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     margin: "auto",
     padding: 10,
-    ...Platform.select({
-      ios: {
-        shadowColor: "#FFF",
-        shadowOffset: { width: 0, height: 10 },
-        shadowOpacity: 0.5,
-        shadowRadius: 10,
-      },
-      android: {
-        elevation: 10,
-      },
-    }),
   },
   inputHeading: {
     fontSize: 18,
@@ -138,9 +134,11 @@ const styles = StyleSheet.create({
   pickImageButtonText: {
     color: "white",
     textAlign: "left",
-    padding: 5,
-    backgroundColor: "black",
-    borderRadius: 20,
+    width: 150,
+    paddingTop: 10,
+  },
+  pickIcon: {
+    marginTop: 10,
   },
 })
 
