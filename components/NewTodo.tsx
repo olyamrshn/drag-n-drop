@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons"
+import * as ImagePicker from "expo-image-picker"
 import React, { useState } from "react"
 import {
   View,
@@ -7,37 +8,46 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
+  Image,
 } from "react-native"
-// import useEditorBridge from "react-native-text-editor"
+
 interface CardData {
   id: string
   heading: string
   paragraph: string
+  imageUri?: string
 }
-
-// export const Basic = () => {
-//   const editor = (useEditorBridge as any)({
-//     autofocus: true,
-//     avoidIosKeyboard: true,
-//   })
-// }
 
 const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
   const [heading, setHeading] = useState("")
   const [paragraph, setParagraph] = useState("")
+  const [imageUri, setImageUri] = useState<string | undefined>(undefined)
 
   const handleCreate = () => {
     const newCard: CardData = {
       id: Date.now().toString(),
       heading,
       paragraph,
+      imageUri,
     }
     onAdd(newCard)
+  }
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+    })
+
+    if (!result.canceled) {
+      // @ts-ignore
+      setImageUri(result.uri)
+    }
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.newCard}>
+        {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
         <TextInput
           style={styles.inputHeading}
           placeholder="todo heading ..."
@@ -55,6 +65,9 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
           multiline
           scrollEnabled={false}
         />
+        <TouchableOpacity onPress={pickImage} style={styles.pickImageButton}>
+          <Text style={styles.pickImageButtonText}>pic an image</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={handleCreate}
           style={[
@@ -113,6 +126,21 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 10,
     marginTop: 20,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+  },
+  pickImageButton: {
+    width: 100,
+  },
+  pickImageButtonText: {
+    color: "white",
+    textAlign: "left",
+    padding: 5,
+    backgroundColor: "black",
+    borderRadius: 20,
   },
 })
 
