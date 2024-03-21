@@ -1,10 +1,11 @@
 import { Ionicons } from "@expo/vector-icons"
+import { Link } from "expo-router"
 import React from "react"
 import { StyleSheet, View, TouchableOpacity, Dimensions } from "react-native"
 
 const { width } = Dimensions.get("window")
 
-const Taskbar: React.FC<{
+const Toolbar: React.FC<{
   onAddCard: () => void
   isAddingTodo: boolean
   onCancel: () => void
@@ -22,7 +23,9 @@ const Taskbar: React.FC<{
         )}
       </TouchableOpacity>
       <View style={styles.bottomBar}>
-        <Ionicons name="home-outline" size={24} color="white" />
+        <Link style={{ alignItems: "center" }} href="./HomePage">
+          <Ionicons name="home-outline" size={24} color="white" />
+        </Link>
         <Ionicons name="search-outline" size={24} color="white" />
         <Ionicons name="map-outline" size={24} color="white" />
       </View>
@@ -48,14 +51,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#0074D9",
   },
   bottomBar: {
+    width,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    width: width,
     opacity: 0.5,
     backgroundColor: "rgba(295, 295, 255, 0.1)",
     paddingVertical: 20,
   },
 })
 
-export default Taskbar
+export default Toolbar

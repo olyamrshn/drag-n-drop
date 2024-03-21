@@ -30,7 +30,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.drag-n-drop"
     },
     "android": {
       "adaptiveIcon": {

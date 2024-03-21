@@ -17,9 +17,14 @@ const DragAndDropCard: React.FC<{
   paragraph: string
   onDelete: (id: string) => void
   drag: () => void
-}> = ({ id, heading, paragraph, onDelete, drag }) => {
+  isDraggingOver: boolean
+}> = ({ id, heading, paragraph, onDelete, drag, isDraggingOver }) => {
+  const cardStyle = [
+    styles.cardContainer,
+    isDraggingOver && styles.draggingOverCard,
+  ]
   return (
-    <TouchableOpacity onLongPress={drag} style={styles.cardContainer}>
+    <TouchableOpacity onLongPress={drag} style={cardStyle}>
       <TouchableOpacity
         onPress={() => onDelete(id)}
         style={styles.deleteButton}
@@ -59,13 +64,14 @@ const Page: React.FC<{
           data={cards}
           onDragEnd={({ data }) => setCards(data)}
           keyExtractor={(item) => item.id}
-          renderItem={({ item, drag }) => (
+          renderItem={({ item, drag, isActive }) => (
             <DragAndDropCard
               id={item.id}
               heading={item.heading}
               paragraph={item.paragraph}
               onDelete={handleDeleteCard}
               drag={drag}
+              isDraggingOver={isActive}
             />
           )}
         />
@@ -80,6 +86,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     width: "100%",
+  },
+  draggingOverCard: {
+    backgroundColor: "rgba(0,0,0,0.7)",
   },
   cardContainer: {
     marginTop: 20,

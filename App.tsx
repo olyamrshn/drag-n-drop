@@ -1,10 +1,9 @@
 import Page from "components/Page"
 import React, { useState } from "react"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
-import { launchCamera, launchImageLibrary } from "react-native-image-picker"
+// import { launchCamera, launchImageLibrary } from "react-native-image-picker"
 
-import Taskbar from "./components/Taskbar"
-
+import Toolbar from "components/Toolbar"
 interface CardData {
   id: string
   heading: string
@@ -34,7 +33,7 @@ const App: React.FC = () => {
           onAdd={addNewCard}
         />
       </GestureHandlerRootView>
-      <Taskbar
+      <Toolbar
         onAddCard={() => setIsNewTodoVisible(true)}
         isAddingTodo={isNewTodoVisible}
         onCancel={cancelAdding}

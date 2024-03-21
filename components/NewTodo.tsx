@@ -6,12 +6,21 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from "react-native"
+// import useEditorBridge from "react-native-text-editor"
 interface CardData {
   id: string
   heading: string
   paragraph: string
 }
+
+// export const Basic = () => {
+//   const editor = (useEditorBridge as any)({
+//     autofocus: true,
+//     avoidIosKeyboard: true,
+//   })
+// }
 
 const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
   const [heading, setHeading] = useState("")
@@ -35,6 +44,7 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
           placeholderTextColor="rgba(255, 255, 255, 0.7)"
           value={heading}
           onChangeText={setHeading}
+          multiline
         />
         <TextInput
           style={styles.inputParagraph}
@@ -42,11 +52,13 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
           placeholderTextColor="rgba(255, 255, 255, 0.7)"
           value={paragraph}
           onChangeText={setParagraph}
+          multiline
+          scrollEnabled={false}
         />
         <TouchableOpacity
           onPress={handleCreate}
           style={[
-            { opacity: !heading || !paragraph ? 0.6 : 1 },
+            { opacity: !heading || !paragraph ? 0.3 : 1 },
             styles.createbutton,
           ]}
           disabled={!heading || !paragraph}
@@ -68,12 +80,23 @@ const styles = StyleSheet.create({
   },
   newCard: {
     marginTop: 20,
-    borderWidth: 1,
+    borderWidth: 1.5,
     width: 340,
-    borderColor: "grey",
+    borderColor: "white",
     borderRadius: 20,
     margin: "auto",
     padding: 10,
+    ...Platform.select({
+      ios: {
+        shadowColor: "#FFF",
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+      },
+      android: {
+        elevation: 10,
+      },
+    }),
   },
   inputHeading: {
     fontSize: 18,
