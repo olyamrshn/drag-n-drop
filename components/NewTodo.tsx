@@ -40,8 +40,7 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
     })
 
     if (!result.canceled) {
-      // @ts-ignore
-      setImageUri(result.uri)
+      setImageUri(result.assets[0].uri)
     }
   }
 
@@ -68,14 +67,18 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
         />
         <TouchableOpacity onPress={pickImage} style={styles.pickImageButton}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Ionicons
-              name="image"
-              style={styles.pickIcon}
-              size={15}
-              color="white"
-            />
             {imageUri ? (
-              <Text style={styles.pickImageButtonText}>image attached</Text>
+              <></>
+            ) : (
+              <Ionicons
+                name="image"
+                style={styles.pickIcon}
+                size={15}
+                color="white"
+              />
+            )}
+            {imageUri ? (
+              <></>
             ) : (
               <Text style={styles.pickImageButtonText}>pick an image</Text>
             )}
