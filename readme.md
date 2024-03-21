@@ -1,15 +1,16 @@
-# drag and drop react native app
+# Drag and drop react native app
 
-clone the repository to your local machine
-git clone git@github.com:marshennikovaolga/drag-n-drop.git
+## Setup
 
-### install dependencies
+```
 npm install
 npm install -g expo-cli
+```
+
+## Run
+
+```
 npm run start
+```
 
-on your mobile device open the expo go app and scan the qr
-
-
-
-
+on your mobile device open the expo go app and scan the QR

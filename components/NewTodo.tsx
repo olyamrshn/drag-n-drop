@@ -34,7 +34,9 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
+      quality: 1,
     })
 
     if (!result.canceled) {
@@ -72,7 +74,11 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
               size={15}
               color="white"
             />
-            <Text style={styles.pickImageButtonText}> pick an image</Text>
+            {imageUri ? (
+              <Text style={styles.pickImageButtonText}>image attached</Text>
+            ) : (
+              <Text style={styles.pickImageButtonText}>pick an image</Text>
+            )}
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -106,6 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     margin: "auto",
     padding: 10,
+    paddingLeft: 20,
   },
   inputHeading: {
     fontSize: 18,
@@ -136,6 +143,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     width: 150,
     paddingTop: 10,
+    paddingLeft: 5,
   },
   pickIcon: {
     marginTop: 10,

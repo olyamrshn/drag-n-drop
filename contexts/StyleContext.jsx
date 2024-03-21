@@ -5,12 +5,12 @@ const StyleContext = createContext()
 export const useGlobalStyles = () => useContext(StyleContext)
 
 export const StyleProvider = ({ children }) => {
-  const globalStyles = {
+  const globalStyle = {
     backgroundColor: "black",
   }
 
   return (
-    <StyleContext.Provider value={globalStyles}>
+    <StyleContext.Provider value={globalStyle}>
       {children}
     </StyleContext.Provider>
   )

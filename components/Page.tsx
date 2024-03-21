@@ -1,30 +1,36 @@
 import { Ionicons } from "@expo/vector-icons"
 import React from "react"
-import { View, StyleSheet, TouchableOpacity } from "react-native"
+import { View, StyleSheet, TouchableOpacity, Image } from "react-native"
 import DraggableFlatList from "react-native-draggable-flatlist"
 
 import NewTodo from "./NewTodo"
 import Text from "./TextColor"
+
 interface CardData {
   id: string
   heading: string
   paragraph: string
+  imageUri?: string
 }
 
 const DragAndDropCard: React.FC<{
   id: string
   heading: string
   paragraph: string
+  imageUri?: string
   onDelete: (id: string) => void
   drag: () => void
   isDraggingOver: boolean
-}> = ({ id, heading, paragraph, onDelete, drag, isDraggingOver }) => {
+}> = ({ id, heading, paragraph, onDelete, drag, isDraggingOver, imageUri }) => {
   const cardStyle = [
     styles.cardContainer,
     isDraggingOver && styles.draggingOverCard,
   ]
   return (
     <TouchableOpacity onLongPress={drag} style={cardStyle}>
+      {imageUri && (
+        <Image source={{ uri: imageUri }} style={styles.cardImage} />
+      )}
       <TouchableOpacity
         onPress={() => onDelete(id)}
         style={styles.deleteButton}
@@ -69,6 +75,7 @@ const Page: React.FC<{
               id={item.id}
               heading={item.heading}
               paragraph={item.paragraph}
+              imageUri={item.imageUri}
               onDelete={handleDeleteCard}
               drag={drag}
               isDraggingOver={isActive}
@@ -92,6 +99,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     marginTop: 20,
+    paddingLeft: 20,
     minHeight: 0,
     borderWidth: 1,
     width: 340,
@@ -142,6 +150,15 @@ const styles = StyleSheet.create({
     top: 20,
     right: 15,
     color: "white",
+  },
+  cardImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+  },
+  cardTextContent: {
+    flex: 1,
+    paddingLeft: 10,
   },
 })
 
