@@ -3,32 +3,31 @@
     "name": "drag-n-drop",
     "slug": "drag-n-drop",
     "version": "1.0.0",
-      "web": {
-        "favicon": "./assets/favicon.png"
-      },
-      "plugins": [
-        [
-          "expo-image-picker",
-          {
-            "photosPermission": "The app accesses your photos to let you share them with your friends",
-            "cameraPermission": "The app accesses your camera to let you take a picture and share it with your friends"
-          }
-        ]
-      ],
-        "experiments": {
-          "tsconfigPaths": true
-        },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends",
+          "cameraPermission": "The app accesses your camera to let you take a picture and share it with your friends"
+        }
+      ]
+    ],
+    "experiments": {
+      "tsconfigPaths": true
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "entryPoint": "./index.js",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.example.drag-n-drop"
