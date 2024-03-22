@@ -70,17 +70,15 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
             {imageUri ? (
               <></>
             ) : (
-              <Ionicons
-                name="image"
-                style={styles.pickIcon}
-                size={15}
-                color="white"
-              />
-            )}
-            {imageUri ? (
-              <></>
-            ) : (
-              <Text style={styles.pickImageButtonText}>pick an image</Text>
+              <View style={styles.pickButtonContainer}>
+                <Ionicons
+                  name="image"
+                  style={styles.pickIcon}
+                  size={15}
+                  color="white"
+                />
+                <Text style={styles.pickImageButtonText}>pick an image</Text>
+              </View>
             )}
           </View>
         </TouchableOpacity>
@@ -137,6 +135,10 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 10,
+  },
+  pickButtonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   pickImageButton: {
     width: 100,

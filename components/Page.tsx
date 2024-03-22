@@ -28,17 +28,21 @@ const DragAndDropCard: React.FC<{
   ]
   return (
     <TouchableOpacity onLongPress={drag} style={cardStyle}>
-      {imageUri && (
-        <Image source={{ uri: imageUri }} style={styles.cardImage} />
-      )}
-      <TouchableOpacity
-        onPress={() => onDelete(id)}
-        style={styles.deleteButton}
-      >
-        <Ionicons name="trash" size={20} color="white" />
-      </TouchableOpacity>
-      <Text style={styles.cardHeading}>{heading}</Text>
-      <Text style={styles.cardParagraph}>{paragraph}</Text>
+      <View style={styles.cardLayout}>
+        {imageUri && (
+          <Image source={{ uri: imageUri }} style={styles.cardImage} />
+        )}
+        <TouchableOpacity
+          onPress={() => onDelete(id)}
+          style={styles.deleteButton}
+        >
+          <Ionicons name="trash" size={20} color="white" />
+        </TouchableOpacity>
+        <View style={styles.cardTextContent}>
+          <Text style={styles.cardHeading}>{heading}</Text>
+          <Text style={styles.cardParagraph}>{paragraph}</Text>
+        </View>
+      </View>
     </TouchableOpacity>
   )
 }
@@ -109,6 +113,21 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#121212",
   },
+  cardLayout: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  cardImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+    marginRight: 10,
+  },
+  cardTextContent: {
+    flex: 1,
+    paddingLeft: 10,
+    justifyContent: "center",
+  },
   cardsWrapper: {
     alignItems: "center",
     justifyContent: "center",
@@ -150,15 +169,6 @@ const styles = StyleSheet.create({
     top: 20,
     right: 15,
     color: "white",
-  },
-  cardImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-  },
-  cardTextContent: {
-    flex: 1,
-    paddingLeft: 10,
   },
 })
 
