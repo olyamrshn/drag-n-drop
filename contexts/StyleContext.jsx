@@ -1,17 +1,17 @@
-import React, { createContext, useContext } from "react"
+// import React, { createContext, useContext } from "react"
 
-const StyleContext = createContext()
+// const StyleContext = createContext()
 
-export const useGlobalStyles = () => useContext(StyleContext)
+// export const useGlobalStyles = () => useContext(StyleContext)
 
-export const StyleProvider = ({ children }) => {
-  const globalStyle = {
-    backgroundColor: "black",
-  }
+// export const StyleProvider = ({ children }) => {
+//   const globalStyle = {
+//     backgroundColor: "black",
+//   }
 
-  return (
-    <StyleContext.Provider value={globalStyle}>
-      {children}
-    </StyleContext.Provider>
-  )
-}
+//   return (
+//     <StyleContext.Provider value={globalStyle}>
+//       {children}
+//     </StyleContext.Provider>
+//   )
+// }

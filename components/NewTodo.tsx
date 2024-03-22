@@ -50,7 +50,7 @@ const NewTodo: React.FC<{ onAdd: (card: CardData) => void }> = ({ onAdd }) => {
         {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
         <TextInput
           style={styles.inputHeading}
-          placeholder="todo heading"
+          placeholder="heading"
           placeholderTextColor="rgba(255, 255, 255, 0.7)"
           value={heading}
           onChangeText={setHeading}
@@ -107,10 +107,7 @@ const styles = StyleSheet.create({
   },
   newCard: {
     marginTop: 20,
-    borderWidth: 1.5,
     width: 340,
-    borderColor: "white",
-    borderRadius: 20,
     margin: "auto",
     padding: 10,
     paddingLeft: 20,
@@ -119,17 +116,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
     fontWeight: "400",
+    marginBottom: 10,
   },
   inputParagraph: {
     marginTop: 3,
     fontWeight: "300",
     fontSize: 14,
     color: "white",
+    marginBottom: 10,
   },
   createbutton: {
     position: "absolute",
-    right: 10,
-    marginTop: 20,
+    right: 20,
+    top: 20,
   },
   image: {
     width: 100,
@@ -139,6 +138,7 @@ const styles = StyleSheet.create({
   pickButtonContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 10,
   },
   pickImageButton: {
     width: 100,

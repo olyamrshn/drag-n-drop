@@ -2,7 +2,6 @@ import Page from "components/Page"
 import Toolbar from "components/Toolbar"
 import React, { useState } from "react"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
-// import { launchCamera, launchImageLibrary } from "react-native-image-picker"
 
 interface CardData {
   id: string
@@ -14,7 +13,7 @@ const App: React.FC = () => {
   const [cards, setCards] = useState<CardData[]>([])
   const [isNewTodoVisible, setIsNewTodoVisible] = useState(false)
 
-  const addNewCard = (card: CardData) => {
+  const updatedCards = (card: CardData) => {
     setCards([card, ...cards])
     setIsNewTodoVisible(false)
   }
@@ -25,12 +24,12 @@ const App: React.FC = () => {
 
   return (
     <>
-      <GestureHandlerRootView style={{ flex: 1, backgroundColor: "#121212" }}>
+      <GestureHandlerRootView style={{ flex: 1, backgroundColor: "black" }}>
         <Page
           cards={cards}
           setCards={setCards}
           isNewTodoVisible={isNewTodoVisible}
-          onAdd={addNewCard}
+          onUpdate={updatedCards}
         />
       </GestureHandlerRootView>
       <Toolbar

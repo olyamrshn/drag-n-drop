@@ -51,9 +51,10 @@ const Page: React.FC<{
   cards: CardData[]
   setCards: React.Dispatch<React.SetStateAction<CardData[]>>
   isNewTodoVisible: boolean
-  onAdd: (card: CardData) => void
-}> = ({ cards, setCards, isNewTodoVisible, onAdd }) => {
+  onUpdate: (card: CardData) => void
+}> = ({ cards, setCards, isNewTodoVisible, onUpdate }) => {
   const handleDeleteCard = (id: string) => {
+    console.log("Trying to delete", id)
     const updatedCards = cards.filter((card) => card.id !== id)
     setCards(updatedCards)
   }
@@ -61,10 +62,10 @@ const Page: React.FC<{
   return (
     <View style={styles.content}>
       <View style={styles.titleTodayContainer}>
-        <Ionicons name="paw" size={24} color="darkkhaki" />
+        <Ionicons name="paw" size={24} color="white" />
         <Text style={styles.titleToday}>Today</Text>
       </View>
-      {isNewTodoVisible && <NewTodo onAdd={onAdd} />}
+      {isNewTodoVisible && <NewTodo onAdd={onUpdate} />}
       {!isNewTodoVisible && cards.length === 0 ? (
         <Text style={styles.emptyList}>
           You don't have any notes yet.{"\n"}Add a new one
@@ -102,25 +103,27 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.7)",
   },
   cardContainer: {
-    marginTop: 20,
-    paddingLeft: 20,
+    paddingLeft: 0,
     minHeight: 0,
+    borderTopWidth: 0,
+    borderBottomWidth: 0.5,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
     borderWidth: 1,
     width: 340,
     borderColor: "grey",
-    borderRadius: 20,
     margin: "auto",
     padding: 10,
-    backgroundColor: "#121212",
+    backgroundColor: "black",
   },
   cardLayout: {
     flexDirection: "row",
     alignItems: "center",
   },
   cardImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
+    width: 110,
+    height: 90,
+    borderRadius: 20,
     marginRight: 10,
   },
   cardTextContent: {
@@ -143,8 +146,8 @@ const styles = StyleSheet.create({
   },
   titleTodayContainer: {
     flexDirection: "row",
-    alignItems: "center",
     marginTop: 20,
+    marginBottom: 20,
   },
   titleToday: {
     fontSize: 20,
