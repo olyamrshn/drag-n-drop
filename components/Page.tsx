@@ -1,6 +1,14 @@
 import { Ionicons } from "@expo/vector-icons"
-import React from "react"
-import { View, StyleSheet, TouchableOpacity, Image } from "react-native"
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet"
+import React, { useState, useRef } from "react"
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Button,
+  TextInput,
+} from "react-native"
 import DraggableFlatList from "react-native-draggable-flatlist"
 
 import NewTodo from "./NewTodo"
@@ -20,14 +28,24 @@ const DragAndDropCard: React.FC<{
   imageUri?: string
   onDelete: (id: string) => void
   drag: () => void
+  onPress: () => void
   isDraggingOver: boolean
-}> = ({ id, heading, paragraph, onDelete, drag, isDraggingOver, imageUri }) => {
+}> = ({
+  id,
+  heading,
+  paragraph,
+  onDelete,
+  drag,
+  isDraggingOver,
+  imageUri,
+  onPress,
+}) => {
   const cardStyle = [
     styles.cardContainer,
     isDraggingOver && styles.draggingOverCard,
   ]
   return (
-    <TouchableOpacity onLongPress={drag} style={cardStyle}>
+    <TouchableOpacity onPress={onPress} onLongPress={drag} style={cardStyle}>
       <View style={styles.cardLayout}>
         {imageUri && (
           <Image source={{ uri: imageUri }} style={styles.cardImage} />
@@ -53,10 +71,28 @@ const Page: React.FC<{
   isNewTodoVisible: boolean
   onUpdate: (card: CardData) => void
 }> = ({ cards, setCards, isNewTodoVisible, onUpdate }) => {
+  const [isBottomSheetVisible, setBottomSheetVisible] = useState(false)
+  const [activeCard, setActiveCard] = useState<CardData | null>(null)
+  const bottomSheetRef = useRef(null)
+
   const handleDeleteCard = (id: string) => {
-    console.log("Trying to delete", id)
     const updatedCards = cards.filter((card) => card.id !== id)
     setCards(updatedCards)
+  }
+
+  const handleCardPress = (card: CardData) => {
+    setActiveCard(card)
+    setBottomSheetVisible(true)
+  }
+
+  const handleSave = () => {
+    if (activeCard) {
+      const updatedCards = cards.map((card) =>
+        card.id === activeCard.id ? { ...activeCard } : card,
+      )
+      setCards(updatedCards)
+      setBottomSheetVisible(false)
+    }
   }
 
   return (
@@ -84,10 +120,50 @@ const Page: React.FC<{
               onDelete={handleDeleteCard}
               drag={drag}
               isDraggingOver={isActive}
+              onPress={() => handleCardPress(item)}
             />
           )}
         />
       )}
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={isBottomSheetVisible ? 0 : -1}
+        snapPoints={["95%"]}
+        backgroundStyle={{ backgroundColor: "black" }}
+      >
+        <BottomSheetView
+          style={{
+            backgroundColor: "black",
+            alignItems: "center",
+          }}
+        >
+          {activeCard && (
+            <View>
+              <TextInput
+                style={styles.sheetHeading}
+                value={activeCard.heading}
+                onChangeText={(text) =>
+                  setActiveCard({ ...activeCard, heading: text })
+                }
+              />
+              <TextInput
+                style={styles.sheetParagraph}
+                value={activeCard.paragraph}
+                onChangeText={(text) =>
+                  setActiveCard({ ...activeCard, paragraph: text })
+                }
+              />
+              {activeCard.imageUri && (
+                <Image
+                  source={{ uri: activeCard.imageUri }}
+                  style={styles.sheetImage}
+                />
+              )}
+              <Button title="save" onPress={handleSave} />
+            </View>
+          )}
+        </BottomSheetView>
+      </BottomSheet>
     </View>
   )
 }
@@ -171,7 +247,26 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 20,
     right: 15,
-    color: "white",
+    color: "#fff",
+  },
+  sheetHeading: {
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    color: "#fff",
+    textAlign: "center",
+  },
+  sheetParagraph: {
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    color: "#fff",
+    textAlign: "center",
+  },
+  sheetImage: {
+    width: 200,
+    height: 200,
+    margin: "auto",
   },
 })
 
